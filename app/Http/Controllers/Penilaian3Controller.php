@@ -117,7 +117,7 @@ class Penilaian3Controller extends Controller
     }
     public function semua_peserta($id){
         $pelatihan = Pelatihan::where('id', $id)->first();
-        $peserta = Peserta::where('id_pelatihan', $id)->get();
+        $peserta = Peserta::where('id_pelatihan', $id)->orderBy('nip')->get();
         $nilai_peserta = Penilaian3::where('id_pelatihan', $id)->where('penilai', Auth::user()->id)->get();
 
         return view('dashboard.penilaian.3.index',compact('pelatihan', 'peserta'));
@@ -129,7 +129,7 @@ class Penilaian3Controller extends Controller
 
         $cek_penilai = Penilaian3::where('nip', $nip)->where('id_pelatihan', $id_pelatihan)->where('penilai', Auth::user()->id)->get();
         if(count($cek_penilai) >= 1){
-            abort('404');
+            return redirect()->route('errorPenilaian');
         }else{
             return view('dashboard.penilaian.3.input',compact('pelatihan', 'peserta', 'nilai_peserta'));
         }

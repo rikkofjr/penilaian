@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Penilaian3;
 
 class Peserta extends Model
 {
@@ -13,6 +14,6 @@ class Peserta extends Model
     protected $fillable = ['nip', 'nama_peserta', 'kelompok', 'id_pelatihan'];
     
     public function nilai3(){
-     return $this->hasOne('App\Models\Penilaian3', 'nip');
+     return $this->hasMany(Penilaian3::class, 'nip');
     }
 }

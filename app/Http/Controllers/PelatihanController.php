@@ -114,8 +114,5 @@ class PelatihanController extends Controller
     {
         //
     }
-    //halaman penilaian digunakan sebagai halamam untuk menuju daftar formulir penilaian
-    public function halaman_penilaian($id){
-        return view('dashboard.pelatihan.daftar-form');
-    }
+    
 }

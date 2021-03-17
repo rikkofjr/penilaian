@@ -25,7 +25,7 @@
                         </ul>
                     </div>
                 @endif
-                {!! Form::open(array('route' => 'penilaian-pribadi4.store','method'=>'POST')) !!}
+                {!! Form::open(array('route' => 'penilaian-partispasi4.store','method'=>'POST')) !!}
                 {!! Form::hidden('id_pelatihan', $pelatihan->id, array('placeholder' => '','class' => 'form-control')) !!}
                     <div class="form-group">
 

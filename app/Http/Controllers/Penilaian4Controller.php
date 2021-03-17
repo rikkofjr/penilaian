@@ -123,7 +123,7 @@ class Penilaian4Controller extends Controller
 
         $cek_penilai = Penilaian4::where('nip', $nip)->where('id_pelatihan', $id_pelatihan)->where('penilai', Auth::user()->id)->get();
         if(count($cek_penilai) >= 1){
-            abort('404');
+            return redirect()->route('errorPenilaian');
         }else{
             return view('dashboard.penilaian.4.input',compact('pelatihan', 'peserta', 'nilai_peserta'));
         }

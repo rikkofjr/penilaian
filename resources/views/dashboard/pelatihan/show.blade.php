@@ -30,6 +30,7 @@
             <button type="button" class="btn btn-primary mr-5" data-toggle="modal" data-target="#importExcel">
                IMPORT Peserta EXCEL
             </button>
+            <a href="{{route('formulirPenilaian', $pelatihan->id)}}" class="btn btn-success mr-5">Formulir Penilaian</a>
             <br/><br/>
             @if (session('success'))
                             <div class="alert alert-success">

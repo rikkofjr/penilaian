@@ -10,6 +10,7 @@ use Auth;
 
 use App\Imports\PesertaImport;
 use Maatwebsite\Excel\Facades\Excel;
+use DB;
 //model data
 use App\Models\Pelatihan;
 use App\Models\Peserta;
@@ -57,16 +58,16 @@ class Penilaian2Controller extends Controller
         $input->id_pelatihan = $request->id_pelatihan;
         $input->kelompok = $request->kelompok;
         $input->tanggal = \Carbon\Carbon::now();
-        $input->pp = $request->pp;
-        $input->pm = $request->pm;
-        $input->ep = $request->ep;
-        $input->khp = $request->khp;
+        $input->n1 = $request->pp;
+        $input->n2 = $request->pm;
+        $input->n3 = $request->ep;
+        $input->n4 = $request->khp;
         $input->total = $total;
         $input->keterangan = $request->keterangan;
         $input->penilai = Auth::user()->id;
         $input->save();
 
-        return redirect()->route('pelatihan.show', $input->id_pelatihan);
+        return redirect()->route('penilaian-naskah2.show', $input->id_pelatihan);
     }
 
     /**
@@ -77,7 +78,25 @@ class Penilaian2Controller extends Controller
      */
     public function show($id)
     {
-        //
+        $pelatihan = Pelatihan::where('id', $id)->first();
+        //$peserta = Peserta::where('id_pelatihan', $id)->get()->groupBy('kelompok');
+        $peserta = Peserta::select('kelompok', DB::raw('count(*) as total'))
+        ->groupBy('kelompok')
+        ->where('id_pelatihan', $id)
+        ->get();
+
+        $score = Penilaian1::select('kelompok', 
+        DB::raw('sum(n1) as total_n1'), 
+        DB::raw('sum(n2) as total_n2'),
+        DB::raw('sum(n3) as total_n3'),
+        DB::raw('sum(n4) as total_n4'))
+        ->groupBy('kelompok')
+        ->groupBy('id_pelatihan')
+        ->where('id_pelatihan', $id)
+        ->orderBy('kelompok')
+        ->get();
+        //dd($peserta);
+        return view('dashboard.penilaian.2.show-score', compact('pelatihan', 'peserta','score'));
     }
 
     /**
@@ -113,9 +132,15 @@ class Penilaian2Controller extends Controller
     {
         //
     }
-    public function isi_penilaian2($id){
+    public function isi_penilaian2($id, $kelompok){
         $pelatihan = Pelatihan::where('id', $id)->first();
+        //chek apa kah sudah ngisi
+        $chek_penilaian2 = Penilaian2::where('id_pelatihan', $id)->where('kelompok', $kelompok)->where('penilai', Auth::user()->id)->get();
         //dd($pelatihan);
-        return view('dashboard.penilaian.2.create',compact('pelatihan'));
+        if(count($chek_penilaian2) >= 1){
+            return redirect()->route('errorPenilaian');
+        }else{
+            return view('dashboard.penilaian.2.create',compact('pelatihan', 'kelompok'));
+        }   
     }
 }

@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Auth;
 
+use DB;
 use App\Imports\PesertaImport;
 use Maatwebsite\Excel\Facades\Excel;
 //model data
@@ -46,8 +47,8 @@ class Penilaian1Controller extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'kelompok.required' => 'Nama Pelatihan Wajid Diisi',
-            'judul_naskah.required' => 'Angkatan pelatihan harap diisi',
+            'kelompok.required' => 'Kelompok Wajid Diisi',
+            'judul_naskah.required' => 'Judul Naskah harap diisi',
         ];
         $this->validate($request,[
             'kelompok' => 'required',
@@ -58,11 +59,11 @@ class Penilaian1Controller extends Controller
         $input->id_pelatihan = $request->id_pelatihan;
         $input->kelompok = $request->kelompok;
         $input->judul_naskah = $request->judul_naskah;
-        $input->nn = $request->nn;
-        $input->on = $request->on;
-        $input->mba = $request->mba;
-        $input->rki = $request->rki;
-        $input->nm = $request->nm;
+        $input->n1 = $request->nn;
+        $input->n2 = $request->on;
+        $input->n3 = $request->mba;
+        $input->n4 = $request->rki;
+        $input->n5 = $request->nm;
         $input->total = $total;
         $input->keterangan = $request->keterangan;
         $input->penilai = Auth::user()->id;
@@ -79,7 +80,28 @@ class Penilaian1Controller extends Controller
      */
     public function show($id)
     {
-        //
+        $pelatihan = Pelatihan::where('id', $id)->first();
+        //$peserta = Peserta::where('id_pelatihan', $id)->get()->groupBy('kelompok');
+        $peserta = Peserta::select('kelompok', DB::raw('count(*) as total'))
+        ->groupBy('kelompok')
+        ->where('id_pelatihan', $id)
+        ->orderBy('kelompok')
+        ->get();
+
+        $score = Penilaian1::select('kelompok', 
+        DB::raw('sum(n1) as total_n1'), 
+        DB::raw('sum(n2) as total_n2'),
+        DB::raw('sum(n3) as total_n3'),
+        DB::raw('sum(n4) as total_n4'),
+        DB::raw('sum(n5) as total_n5'))
+        ->groupBy('kelompok')
+        ->groupBy('id_pelatihan')
+        ->where('id_pelatihan', $id)
+        ->orderBy('kelompok')
+        ->get();
+
+        //dd($score);
+        return view('dashboard.penilaian.1.show-score', compact('pelatihan', 'peserta', 'score'));
     }
 
     /**
@@ -115,10 +137,17 @@ class Penilaian1Controller extends Controller
     {
         //
     }
-    public function isi_penilaian1($id){
+    public function isi_penilaian1($id, $kelompok){
         $pelatihan = Pelatihan::where('id', $id)->first();
+        //chek apa kah sudah ngisi
+        $chek_penilaian1 = Penilaian1::where('id_pelatihan', $id)->where('kelompok', $kelompok)->where('penilai', Auth::user()->id)->get();
         //dd($pelatihan);
-        return view('dashboard.penilaian.1.create',compact('pelatihan'));
+        if(count($chek_penilaian1) >= 1){
+            return redirect()->route('errorPenilaian');
+        }else{
+            return view('dashboard.penilaian.1.create',compact('pelatihan', 'kelompok'));
+        }
+        
     }
 
 }

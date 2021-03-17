@@ -28,7 +28,7 @@
                 {!! Form::open(array('route' => 'penilaian-naskah2.store','method'=>'POST')) !!}
                     <div class="form-group">
                         {!! Form::hidden('id_pelatihan', $pelatihan->id, array('placeholder' => '','class' => 'form-control')) !!}
-                        {!! Form::number('kelompok', $pelatihan->kelompok, array('placeholder' => 'Kelompok','class' => 'form-control')) !!}
+                        {!! Form::number('kelompok', $kelompok, array('placeholder' => 'Kelompok','class' => 'form-control', 'readonly' => 'readonly')) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::text('pp', null, array('placeholder' => 'Nilai Penampilan Pribadi','class' => 'form-control')) !!}

@@ -13,6 +13,7 @@
     <div class="col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <a href="{{URL::previous()}}"><i class="fas fa-arrow-left"></i></a>
                 <h6 class="m-0 font-weight-bold text-primary">PENILAIAN PRODUK NASKAH KELOMPOK</h6>
             </div>
             <div class="card-body">
@@ -28,7 +29,7 @@
                 {!! Form::open(array('route' => 'penilaian-naskah1.store','method'=>'POST')) !!}
                     <div class="form-group">
                         {!! Form::hidden('id_pelatihan', $pelatihan->id, array('placeholder' => '','class' => 'form-control')) !!}
-                        {!! Form::number('kelompok', $pelatihan->kelompok, array('placeholder' => 'Kelompok','class' => 'form-control')) !!}
+                        {!! Form::number('kelompok', $kelompok, array('placeholder' => 'Kelompok','class' => 'form-control', 'readonly' => 'readonly')) !!}
                     </div>
                     <div class="form-group">
                         {!! Form::text('judul_naskah', null, array('placeholder' => 'Judul naskah','class' => 'form-control')) !!}

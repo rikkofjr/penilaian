@@ -13,7 +13,7 @@
     <div class="col-lg-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Nilai Peserta</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Nilai Kelompok</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -28,37 +28,34 @@
                 </div>
             </div>
             <div class="card-body">
-            
+                Penilaian Kelompok 
+                @foreach($peserta as $pst)
+                <a class="btn btn-primary" href="{{route('isiPenilaian2', [$pelatihan->id,'kelompok'=> $pst->kelompok])}}">{{$pst->kelompok}}</a>
+                @endforeach
                 <table class="table table-stripped">
                     <tr>
                         <td rowspan="2">No</td>
-                        <td rowspan="2">Nama Pelaku</td>
-                        <td rowspan="2">NRP</td>
-                        <td rowspan="2">Jabatan</td>
-                        <td colspan="6">Nilai Partisipasi</td>
-                        <td rowspan="2">act</td>
+                        <td rowspan="2">Kelompok</td>
+                        <td colspan="5">Nilai</td>
+                        <td rowspan="2">Total</td>
                     </tr>
                     <tr>
-                        <td>Nilai 1</td>
-                        <td>Nilai 2</td>
-                        <td>Nilai 3</td>
-                        <td>Nilai 4</td>
-                        <td>Nilai 5</td>
-                        <td>Total</td>
+                        <td>NN</td>
+                        <td>ON</td>
+                        <td>MBA</td>
+                        <td>RKI</td>
+                        <td>NM</td>
                     </tr>
-                    @foreach($peserta as $pst)
+                    @foreach($score as $scr)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td><a href="{{route('beriPenilaian3', ['id_pelatihan' => $pst->id_pelatihan, 'nip' => $pst->nip] )}}">{{$pst->nip}}</a></td>
-                        <td>{{$pst->nip}}</td>
-                        <td>jabatan</td>
-                        <td>{{$pst->nilai3->n1}}</td>
-                        <td>{{$pst->n2}}</td>
-                        <td>{{$pst->n3}}</td>
-                        <td>{{$pst->n4}}</td>
-                        <td>{{$pst->n5}}</td>
-                        <td>50</td>
-                        <td>edit</td>
+                        <td>{{$scr->kelompok}}</td>
+                        <td>{{$scr->total_n1}}</td>
+                        <td>{{$scr->total_n1}}</td>
+                        <td>{{$scr->total_n2}}</td>
+                        <td>{{$scr->total_n3}}</td>
+                        <td>{{$scr->total_n4}}</td>
+                        <td>{{$scr->total}}</td>  
                     </tr>
                     @endforeach
                 </table>
