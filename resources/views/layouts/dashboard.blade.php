@@ -10,7 +10,7 @@
   <meta name="author" content="">
 
 
-  @yield('Title')
+  <title>@yield('Title')</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{asset('sb-bootstrap/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">

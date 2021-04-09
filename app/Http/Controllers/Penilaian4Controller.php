@@ -14,6 +14,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Pelatihan;
 use App\Models\Peserta;
 use App\Models\Penilaian4;
+
+use DB;
 class Penilaian4Controller extends Controller
 {
     /**
@@ -111,10 +113,20 @@ class Penilaian4Controller extends Controller
     }
     public function semua_peserta($id){
         $pelatihan = Pelatihan::where('id', $id)->first();
-        $peserta = Peserta::where('id_pelatihan', $id)->get();
-        $nilai_peserta = Penilaian4::where('id_pelatihan', $id)->where('penilai', Auth::user()->id)->get();
+        $peserta = Peserta::where('id_pelatihan', $id)->orderBy('nip')->get();
+        $nilaiPeserta = Penilaian4::select('nip', 
+        DB::raw('sum(n1) as total_n1'), 
+        DB::raw('sum(n2) as total_n2'),
+        DB::raw('sum(n3) as total_n3'))
+        ->groupBy('nip')
+        ->groupBy('id_pelatihan')
+        ->where('id_pelatihan', $id)
+        ->orderBy('nip')
+        ->get();
+        
 
-        return view('dashboard.penilaian.4.index',compact('pelatihan', 'peserta'));
+        //dd($peserta);
+        return view('dashboard.penilaian.4.index',compact('pelatihan', 'peserta','nilaiPeserta'));
     }
     public function input_nilai($id_pelatihan, $nip){
         $pelatihan = Pelatihan::where('id', $id_pelatihan)->first();

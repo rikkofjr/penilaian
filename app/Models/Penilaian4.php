@@ -21,4 +21,8 @@ class Penilaian4 extends Model
         'total',
         'keterangan',
     ];
+    public function peserta(){
+        return $this->belongsTo('App\Models\Peserta', 'nip', 'nip');
+        
+    }
 }

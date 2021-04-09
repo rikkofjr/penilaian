@@ -4,7 +4,7 @@
     <div class="col-lg-12">
         <div class="card mb-4 py-3 border-left-primary">
             <div class="card-body">
-                PENILAIAN PARTISIPASI PERORANGAN pada Pelatihan {{$pelatihan->nama_pelatihan}}
+                PENILAIAN PARTISIPASI PERORANGAN pada Pelatihan <a href="{{route('pelatihan.show', $pelatihan->id)}}">{{$pelatihan->nama_pelatihan}}</a>
             </div>
         </div>
     </div>

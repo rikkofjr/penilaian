@@ -4,8 +4,7 @@
     <div class="col-lg-12">
         <div class="card mb-4 py-3 border-left-primary">
             <div class="card-body">
-                Formulir Pelatihan {{$pelatihan->nama_pelatihan}} Angkatan {{$pelatihan->angkatan}}
-                {{$pelatihan}}
+                Formulir Pelatihan <a href="{{route('pelatihan.show', $pelatihan->id)}}">{{$pelatihan->nama_pelatihan}} Angkatan {{$pelatihan->angkatan}}</a>
             </div>
         </div>
     </div>

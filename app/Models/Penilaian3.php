@@ -23,8 +23,8 @@ class Penilaian3 extends Model
         'total',
     ];
 
-    public function identitas_peserta(){
-        return $this->belongsTo(Peserta::class, 'nip');
+    public function peserta(){
+        return $this->belongsTo('App\Models\Peserta', 'nip', 'nip');
         
     }
 }

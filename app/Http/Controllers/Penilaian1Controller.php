@@ -48,11 +48,16 @@ class Penilaian1Controller extends Controller
     {
         $messages = [
             'kelompok.required' => 'Kelompok Wajid Diisi',
-            'judul_naskah.required' => 'Judul Naskah harap diisi',
+            'required' => 'Semua nilai wajib diisi',
         ];
         $this->validate($request,[
             'kelompok' => 'required',
             'judul_naskah' => 'required',
+            'n1' => 'required',
+            'n2' => 'required',
+            'n3' => 'required',
+            'n4' => 'required',
+            'n5' => 'required',
         ],$messages);
         $total = (($request->nn*1)+($request->on*2)+($request->mba*3)+($request->rki*3)+($request->nm*1))/10;
         $input = new Penilaian1;

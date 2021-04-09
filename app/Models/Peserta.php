@@ -14,6 +14,9 @@ class Peserta extends Model
     protected $fillable = ['nip', 'nama_peserta', 'kelompok', 'id_pelatihan'];
     
     public function nilai3(){
-     return $this->hasMany(Penilaian3::class, 'nip');
+     return $this->hasMany('App\Models\Penilaian3', 'nip', 'nip');
+    }
+    public function nilai4(){
+     return $this->hasMany('App\Models\Penilaian3', 'nip', 'nip');
     }
 }

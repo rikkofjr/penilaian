@@ -36,28 +36,56 @@
                         {!! Form::text('nama', $peserta->nama_peserta, array('placeholder' => 'Partisipasi tidak tampak sama sekali','class' => 'form-control', 'disabled' => 'Disabled')) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::number('n1', null, array('placeholder' => 'Partisipasi tidak tampak sama sekali','class' => 'form-control')) !!}
+                        <select class="form-control" name="n1" placeholder="Partisipasi tidak tampak sama sekali">
+                            <option value="" class="label" hidden>Partisipasi tidak tampak sama sekali</option>
+                            <option value="-8">-8</option>
+                            <option value="-9">-9</option>
+                            <option value="-10">-10</option>
+                        </select> 
                         <small>Nilai : -8 s/d -10</small>
                     </div>
                     <div class="form-group">
-                        {!! Form::number('n2', null, array('placeholder' => 'Partisipasi kecil','class' => 'form-control')) !!}
+                        <select class="form-control" name="n2" placeholder="Partisipasi kecil">
+                            <option value="" class="label" hidden>Partisipasi kecil</option>
+                            <option value="-4">-4</option>
+                            <option value="-5">-5</option>
+                            <option value="-6">-6</option>
+                            <option value="-7">-7</option>
+                        </select> 
                         <small>Nilai : -4 s/d -7</small>
                     </div>
                     <div class="form-group">
-                        {!! Form::number('n3', null, array('placeholder' => 'Partisipasi sedang','class' => 'form-control')) !!}
+                        <select class="form-control" name="n3" placeholder="Partisipasi Sedang">
+                            <option value="" class="label" hidden>Partisipasi Sedang</option>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select> 
                         <small>Nilai : 0 s/d 3</small>
                     </div>
                     <div class="form-group">
-                        {!! Form::number('n4', null, array('placeholder' => 'Partisipasi cukup positif','class' => 'form-control')) !!}
+                        <select class="form-control" name="n4" placeholder="Partisipasi cukup positif">
+                            <option value="" class="label" hidden>Partisipasi cukup positif</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select> 
                         <small>Nilai : 4 s/d 7</small>
                     </div>
                     <div class="form-group">
-                        {!! Form::number('n5', null, array('placeholder' => 'Partisipasi sangat menonjol','class' => 'form-control')) !!}
+                        <select class="form-control" name="n5" placeholder="Partisipasi sangat menonjol">
+                            <option value="" class="label" hidden>Partisipasi sangat menonjol</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select> 
                         <small>Nilai : 8 s/d 10</small>
                     </div>
                     
                     <div class="form-group">
-                    {!! form::textarea('keterangan', null, array('placeholder' => 'Keskripsi','class' => 'form-control')) !!}
+                    {!! form::textarea('keterangan', null, array('placeholder' => 'Deskripsi','class' => 'form-control')) !!}
                     </div>
                     {{ Form::submit('Tambah Data', array('class' => 'btn btn-primary')) }}
 
